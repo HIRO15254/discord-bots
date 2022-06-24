@@ -1,0 +1,33 @@
+{
+  "name": "discord_bots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node src/main.ts",
+    "start": "node build/main.js",
+    "compile": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.31",
+    "@types/google-spreadsheet": "^3.2.1",
+    "@types/superagent": "^4.1.15",
+    "eslint": "^8.0.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "google-spreadsheet": "^3.2.0",
+    "superagent": "^7.1.3"
+  }
+}
