@@ -1,4 +1,6 @@
 import Discord from 'discord.js';
+
+// ランダム曲決め用のコマンド
 module.exports = {
   data: {
     name: "random",

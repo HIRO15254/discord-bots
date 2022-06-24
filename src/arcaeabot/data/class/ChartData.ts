@@ -3,12 +3,18 @@ import Level from './Level';
 import Difficulty from './Difficulty';
 import ChartObj from '../interface/ChartObj';
 
+// 譜面データを表すクラス
 export default class ChartData {
-  spreadSheetRow: GoogleSpreadsheetRow;
+  private spreadSheetRow: GoogleSpreadsheetRow;
   chartObj: ChartObj
 
-  constructor(spreadSheetrow: GoogleSpreadsheetRow) {
-    this.spreadSheetRow = spreadSheetrow;
+  /**
+   * 譜面データを表すクラスを作成する
+   * @param {GoogleSpreadsheetRow} spreadSheetRow 譜面データに対応するGoogleSpreadsheetRow
+   * @memberof ChartData
+   */
+  constructor(spreadSheetRow: GoogleSpreadsheetRow) {
+    this.spreadSheetRow = spreadSheetRow;
     this.chartObj = {
       title: this.spreadSheetRow.title,
       englishTitle: this.spreadSheetRow.english_title,
@@ -21,6 +27,11 @@ export default class ChartData {
     }
   }
 
+  /**
+   * 譜面データを更新する
+   * @param {ChartObj} chartObj 更新する譜面データ
+   * @memberof ChartData
+   */
   async update(chartObj: ChartObj) {
     let updated = false;
     if(this.chartObj.englishTitle != chartObj.englishTitle) {
@@ -50,6 +61,7 @@ export default class ChartData {
     }
   }
 
+  // 譜面ごとにuniqueな名前を返す
   getDictName() {
     return this.chartObj.title + "_" + this.chartObj.difficulty?.toString();
   }

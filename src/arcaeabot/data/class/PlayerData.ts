@@ -1,12 +1,20 @@
 import { GoogleSpreadsheetRow } from 'google-spreadsheet';
 import ChartData from './ChartData';
 
+// 各プレイヤーを表すクラス
 export default class PlayerData {
-  pack: { [name: string] : Boolean } = {}
-  chart: { [name: string] : Boolean } = {}
+  pack: { [name: string] : boolean } = {}
+  chart: { [name: string] : boolean } = {}
   id: string;
   spreadSheetRow: GoogleSpreadsheetRow
 
+  /**
+   * spreadSheetRowからプレイヤーを表すクラスを作成する
+   * @param {GoogleSpreadsheetRow} spreadSheetRow プレイヤーに対応するGoogleSpreadsheetRow
+   * @param {string[]} headers ヘッダーのリスト
+   * @memberof PlayerData
+   */
+  // TODO: どう考えてもObjectで受け取ったほうがいい
   constructor(spreadSheetRow: GoogleSpreadsheetRow, headers: string[]) {
     this.spreadSheetRow = spreadSheetRow;
     this.id = this.spreadSheetRow.id;

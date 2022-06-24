@@ -4,14 +4,11 @@ import ChartObj from './interface/ChartObj';
 
 class ChartDataManager {
   chartData: { [name: string] : ChartData } = {};
-  chartDataSpreadsheet?: MySpreadsheet = undefined
-
-  constructor() {
-  }
+  chartDataSpreadsheet?: MySpreadsheet = undefined;
 
   async load() {
     this.chartData = {};
-    this.chartDataSpreadsheet = await MySpreadsheet.createMySpreadsheet(process.env.ARCAEA_CHARTDATA_SPREADSHEET_ID);
+    this.chartDataSpreadsheet = await MySpreadsheet.createMySpreadsheet(process.env.ARCAEA_CHARTDATA_SPREADSHEET_ID ?? "");
     const songDataRows = await this.chartDataSpreadsheet?.getRowsById(0);
     if(songDataRows == undefined) { return; }
     songDataRows.forEach(songRow => {

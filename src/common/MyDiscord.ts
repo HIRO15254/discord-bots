@@ -1,13 +1,19 @@
 import Discord from 'discord.js';
-import path from 'path'
 import getCommandPath from './getCommandPath';
 
+// Discord Botのデータを表すクラス
 export default class MyDiscord {
   client: any;
   token: string;
   commands: any = {};
 
-  constructor(token: string, commandsPath: string[]) {
+  /**
+   * Discord Botのデータを表すクラスを作成する
+   * @param token Discordの認証トークン
+   * @param commandsPath このbotのコマンドのパスの配列
+   * @memberof MyDiscord
+   */
+  private constructor(token: string, commandsPath: string[]) {
     this.client = new Discord.Client({intents: [Discord.Intents.FLAGS.GUILDS]})
     this.token = token;
     for (const file of commandsPath) {
@@ -21,7 +27,7 @@ export default class MyDiscord {
         data.push(this.commands[commandName].data);
       }
       console.log(data);
-      await this.client.application.commands.set(data, "918371121131311145"); //TODO: サーバーID消す
+      await this.client.application?.commands.set(data, "918371121131311145"); //TODO: サーバーID消す
     });
 
     this.client.on('interactionCreate', async (interaction: Discord.CommandInteraction) => {
@@ -41,18 +47,25 @@ export default class MyDiscord {
     });
   }
 
+  /**
+   * Discord Botにログインする
+   * @param client Discordのクライアント
+   * @param token Discordの認証トークン
+   * @memberof MyDiscord
+   */
   private static async login(client: Discord.Client, token: string) {
     await client.login(token);
-    console.log("OK");
   }
 
-  public static async createMyDiscord(token: string | undefined, commandsPath: string[]) {
-    if (token == undefined) {
-      console.error("Discord token is undifined.");
-      return undefined;
-    }
+  /**
+   * Discord Botを起動する
+   * @param token Discordの認証トークン
+   * @param commandsPath このbotのコマンドのパスの配列
+   * @memberof MyDiscord
+   */
+  //TODO: サーバーIDを受け取るようにする
+  public static async createMyDiscord(token: string, commandsPath: string[]) {
     const myDiscord = new MyDiscord(token, commandsPath);
     await this.login(myDiscord.client, myDiscord.token);
-    return myDiscord;
   }
 }

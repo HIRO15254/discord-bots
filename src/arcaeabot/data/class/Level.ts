@@ -1,8 +1,14 @@
 const LEVELS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "9+", "10", "10+", "11"]
 
+// 譜面のレベルを表すクラス
 export default class Level {
-  private level: number = -1;
+  private level = -1;
 
+  /**
+   * 文字列またはレベルに対応する数字からレベルクラスを生成する
+   * @param level レベルを表す文字列または数字
+   * @memberof Level
+   */
   constructor(level: number | string) {
     if(typeof(level) == 'number') {
       this.level = level;
@@ -14,10 +20,20 @@ export default class Level {
     }
   }
 
+  /**
+   * クラスが表す難易度に対応する数字を返す
+   * @return 難易度に対応する数字 
+   * @memberof Level
+   */
   public toNumber() {
     return this.level;
   }
 
+  /**
+   * クラスが表すレベルの文字列を返す
+   * @return レベルの文字列 
+   * @memberof Level
+   */
   public toString() {
     return LEVELS[this.level];
   }

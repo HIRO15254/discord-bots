@@ -6,17 +6,20 @@ import ChartObj from '../data/interface/ChartObj';
 import Difficulty from "../data/class/Difficulty";
 import Level from "../data/class/Level";
 
-
+// wikiの楽曲一覧ページのURL
 const WIKI_URL = "https://wikiwiki.jp/arcaea/%E3%83%91%E3%83%83%E3%82%AF%E9%A0%86";
 const DIFFICULTIES = ["Past", "Present", "Future", "Beyond"];
 const COLORS = ["Aqua", "Lime", "Fuchsia", "Red"];
 
+// 最新の収録楽曲データを取得するコマンド
 module.exports = {
   data: {
     name: "update",
     description: "最新のデータを取得します。(かなり時間がかかります。)",
   },
+  // コマンド実行時の処理
   async execute(interaction: Discord.CommandInteraction) {
+    // 仮のメッセージを表示する
     await interaction.deferReply({
       ephemeral: false,
     });
@@ -32,21 +35,19 @@ module.exports = {
     let counter = 0;
 
     for(const url of urls) {
-      let title: string;
-      let englishTitle: string | undefined;
-      let composer: string = "";
+      let composer = "";
       const levels: string[] = new Array(4);
       const consts: number[] = new Array(4);
-      let commonReq: string = "";
+      let commonReq = "";
       const requirements: string[] = new Array(4);
-      let pack: string = "";
+      let pack = "";
 
       if(url == undefined) { continue; }
       const html = await superagent.get(url);
       const $ = cheerio.load(html.text);
 
-      title = $("h1.title").text();
-      englishTitle = html.text.match(/英語版タイトル「(.+)」/)?.[1];
+      const title = $("h1.title").text();
+      const englishTitle = html.text.match(/英語版タイトル「(.+)」/u)?.[1];
       const mainTableRows = $("div.nobr div.h-scrollable table tbody tr");
       for(const row of mainTableRows) {
         const header = $(row).find("th:first").text()

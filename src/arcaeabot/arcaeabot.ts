@@ -1,5 +1,4 @@
 import MyDiscord from "../common/MyDiscord";
-import MySpreadsheet from '../common/MySpreadsheet';
 import ChartDataManager from './data/ChartDataManager';
 import PlayerDataManager from "./data/PlayerDataManager";
 
@@ -14,5 +13,9 @@ export default async function startArcaeaBot(): Promise<void> {
   const token = process.env.DISCORD_TOKEN;
   await ChartDataManager.load()
   await PlayerDataManager.load()
-  const myDiscord = await MyDiscord.createMyDiscord(token, commandsPath)
+  if (!token) {
+    throw new Error("Discordのトークンが設定されていません。");
+  } else {
+    await MyDiscord.createMyDiscord(token, commandsPath);
+  }
 }

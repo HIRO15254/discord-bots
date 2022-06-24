@@ -3,16 +3,13 @@ import MySpreadsheet from '../../common/MySpreadsheet';
 
 class PlayerDataManager {
   playerData: { [name: string] : PlayerData } = {};
-  #chartDataSpreadsheet?: MySpreadsheet = undefined;
-
-  constructor() {
-  }
+  private chartDataSpreadsheet?: MySpreadsheet = undefined;
 
   async load() {
     this.playerData = {};
-    this.#chartDataSpreadsheet = await MySpreadsheet.createMySpreadsheet(process.env.ARCAEA_PLAYERDATA_SPREADSHEET_ID);
-    const playerDataHeaders = await this.#chartDataSpreadsheet?.getHeaders(937636320); //TODO: べた書きよくない
-    const playerDataRows = await this.#chartDataSpreadsheet?.getRowsById(937636320); //TODO: べた書きよくない
+    this.chartDataSpreadsheet = await MySpreadsheet.createMySpreadsheet(process.env.ARCAEA_PLAYERDATA_SPREADSHEET_ID ?? "");
+    const playerDataHeaders = await this.chartDataSpreadsheet?.getHeaders(937636320); //TODO: べた書きよくない
+    const playerDataRows = await this.chartDataSpreadsheet?.getRowsById(937636320); //TODO: べた書きよくない
     if(!playerDataRows) { return; }
     if(!playerDataHeaders) { return; }
     playerDataRows.forEach(songRow => {
