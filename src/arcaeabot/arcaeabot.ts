@@ -8,7 +8,7 @@ require('dotenv').config();
 export default async function startArcaeaBot(): Promise<void> {
   const commandsPath = [
     "arcaeabot/command/update",
-    "arcaeabot/command/startCSmatch",
+    "arcaeabot/command/startCSMatch",
     "arcaeabot/command/random",
   ];
   const token = process.env.DISCORD_TOKEN;
